@@ -18,13 +18,14 @@ dbListTables(MyDataBase)
 
 dbListFields(MyDataBase, 'CountryLanguage')
 
-DataDB <- dbGetQuery(MyDataBase, "select * from CountryLanguage")
-names(DataDB)
+Languages <- dbGetQuery(MyDataBase, "select * from CountryLanguage")
+names(Languages)
 
-SP <- DataDB %>% filter(Language == "Spanish")
-SP.df <- as.data.frame(SP) 
+ESP <- Languages %>% filter(Language == "Spanish")
+ESP.df <- as.data.frame(ESP) 
 
 
-SP.df %>% ggplot(aes( x = CountryCode, y=Percentage, fill = IsOfficial )) + 
+ESP.df %>% ggplot(aes( x = CountryCode, y=Percentage, fill = IsOfficial )) + 
+  geom_bar(position = "dodge", stat="identity")+
   geom_bin2d() +
   coord_flip()
